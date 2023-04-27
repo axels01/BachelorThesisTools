@@ -30,7 +30,6 @@ def readFile(fileName):
                 pass  
     return data
 
-#Simple file writer
 def writeFile(data, fileName):
     fileName = fileName.split('.')[0] + "_results.txt"
     with open(fileName, 'w') as file:
@@ -41,29 +40,22 @@ def writeFile(data, fileName):
 #has default values for title, x and y labels and bins which can
 #be changed by the user if the initial graph looks good
 def normalDistribution(data, title="Normal distribution", xlabel="X", ylabel="Y", bins=10, save=False, filename="NormalDistribution.png"):
-    #Clears plot
     plt.clf()
     plt.hist(data, bins=bins)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    #Saves the historgram, used in option 1 "run all tests"
-    if save:
-        plt.savefig(fileName.split('.')[0] + "_normalDistr.png")
+    plt.savefig(fileName.split('.')[0] + "_normalDistr.png")
 
 
 def normalProbablity(data, title="QQ Plot", xlabel="X", ylabel="Y", line='45', save=False, filename="QQPlot.png"):
-    #Clears plot
     plt.clf()
-    #convers the data to a logartihmic scale in a numpy array
     data = np.log(np.array(data))
     fig = sm.qqplot(data, line=line)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    #Saves the historgram, used in option 1 "run all tests"
-    if save:
-        plt.savefig(fileName.split('.')[0] + "_QQPlot.png")
+    plt.savefig(fileName.split('.')[0] + "_QQPlot.png")
 
 
 
@@ -72,21 +64,18 @@ if __name__ == '__main__':
     opitons = ["1. All tests (exported)", "2. Shapiro-Wilk and Anderson-Darling tests", "3. Skewness and kurtosis", "4. Normal probability plot (Q-Q)", "5. Normal distribution graph"]
     #prints cwd as a reminder to the user where the script is looking for files
     print("cwd: " + os.getcwd())
+    
     fileName = input("Data file name (no spaces): ")
     #if the file does not exist, exit the script
     if not os.path.exists(fileName):
         sys.exit("The file does not exist")
     data = readFile(fileName)
 
-    #Prints out all the avaliable options and thier corresponding numbers
     for option in opitons:
         print(option)
     option = input("Select an option: ")
 
     if option == '1':
-        #Runs all tests and saves the results
-
-        #Text based tests
         results = []
         shapiro = stats.shapiro(data)
         anderson = stats.anderson(data)
@@ -96,9 +85,10 @@ if __name__ == '__main__':
         results.append("Kurtosis: " + str(stats.kurtosis(data)))
         writeFile(results, fileName)
 
-        #Graphical tests
         normalProbablity(data, "QQ Plot", "X", "Y", '45', True, fileName)
         normalDistribution(data, "Normal distribution", "X", "Y", 10, True, fileName)
+
+
 
     elif option == '2':
         shapiro = stats.shapiro(data)
@@ -134,7 +124,5 @@ if __name__ == '__main__':
         xlabel = input("X label: ")
         ylabel = input("Y label: ")
         normalDistribution(data, title, xlabel, ylabel)
-
-    #If the user enters an unsupported option, exit with error
     else:
         sys.exit("Unsupported option")
