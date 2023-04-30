@@ -41,7 +41,7 @@ def writeFile(data, fileName):
 #be changed by the user if the initial graph looks good
 def normalDistribution(data, title="Normal distribution", xlabel="X", ylabel="Y", bins=10, save=False, filename="NormalDistribution.png"):
     plt.clf()
-    plt.hist(data, bins=bins)
+    plt.hist(data)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
@@ -85,8 +85,8 @@ if __name__ == '__main__':
         results.append("Kurtosis: " + str(stats.kurtosis(data)))
         writeFile(results, fileName)
 
-        normalProbablity(data, "QQ Plot", "X", "Y", '45', True, fileName)
-        normalDistribution(data, "Normal distribution", "X", "Y", 10, True, fileName)
+        normalProbablity(data, "QQ Plot", "X", "Y", 's', True, fileName)
+        normalDistribution(data, "Normal distribution", "X", "Y", 5, True, fileName)
 
 
 
@@ -123,6 +123,6 @@ if __name__ == '__main__':
         title = input("Title of graph: ")
         xlabel = input("X label: ")
         ylabel = input("Y label: ")
-        normalDistribution(data, title, xlabel, ylabel)
+        normalDistribution(data, title, xlabel, ylabel, bins=bin)
     else:
         sys.exit("Unsupported option")
