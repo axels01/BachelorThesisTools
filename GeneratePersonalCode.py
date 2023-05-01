@@ -1,11 +1,9 @@
 '''
 Axel Östergren 2023-04-26
 
-This is a short script to generate a random file tree
-from a few set perameters. This script is written 
-as part of a bachelor thesis project
-by Axel Östergren and Arvid Albinsson at Högskolan Väst
-in Trollhättan, Sweden.
+This script is written as part of a bachelor
+thesis project by Axel Östergren and Arvid Albinsson
+at Högskolan Väst in Trollhättan, Sweden.
 
 The script is free to use and can be modified
 by anyone. The script is provided as is and the authors
